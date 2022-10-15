@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!--Root container-->
+    <RelativeLayout
+        android:id="@+id/root_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <!--View while view is collapsed-->
+
+       <TextView
+           android:id="@+id/Floatid"
+           android:layout_width="50dp"
+           android:layout_height="50dp"
+           android:gravity="center"
+           android:textColor="@color/black"
+           android:background="@mipmap/ic_launcher_round"/>
+
+
+
+
+    </RelativeLayout>
+</FrameLayout>
