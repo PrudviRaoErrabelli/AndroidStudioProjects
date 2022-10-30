@@ -2,12 +2,14 @@ package com.example.gpstrackingdemo;
 
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -174,25 +176,37 @@ public class MainActivity extends AppCompatActivity {
                     if (!Settings.canDrawOverlays(MainActivity.this)) {
                         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                                 Uri.parse("package:" + getPackageName()));
-                       startActivity(intent);
-                        try {
-                            Thread.sleep(5000*10);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        startActivityForResult(intent,12);
+                    }
+                    else {
+                        Intent intent = new Intent(MainActivity.this,FloatingViewService.class);
+                        startService(intent);
+
                     }
                 }
 
-                Intent intent = new Intent(MainActivity.this,FloatingViewService.class);
-                startService(intent);
-
             }
         });
+
     }//end onCreate method
 
 
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode ==12){
+            if(resultCode == Activity.RESULT_OK) {
+                //
+              Intent intent = new Intent(MainActivity.this,FloatingViewService.class);
+                startService(intent);
+            }
+        if(resultCode == Activity.RESULT_CANCELED)
+        {
+Toast.makeText(this,"RESULTCODE:"+resultCode,Toast.LENGTH_SHORT).show();
+        }
+        }
+        Toast.makeText(this,"REQUESTCODE:"+requestCode,Toast.LENGTH_SHORT).show();
+    }
 
     private void notification() {
         createNotificationChanenel();
