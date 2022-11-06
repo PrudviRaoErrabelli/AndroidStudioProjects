@@ -2,9 +2,15 @@ package com.example.photopicker;
 
 import android.annotation.SuppressLint;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -101,6 +107,7 @@ public class FullscreenActivity extends AppCompatActivity {
     };
     private ActivityFullscreenBinding binding;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +117,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
         mVisible = true;
         mControlsView = binding.fullscreenContentControls;
-        mContentView = binding.fullscreenContent;
+        mContentView = binding.imageV;
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
@@ -123,9 +130,24 @@ public class FullscreenActivity extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        binding.dummyButton.setOnTouchListener(mDelayHideTouchListener);
-    }
+        binding.button.setOnTouchListener(mDelayHideTouchListener);
 
+        binding.button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+              mintent.launch("image/*");
+              return true;
+            }
+        });
+    }
+ActivityResultLauncher<String> mintent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+    @Override
+    public void onActivityResult(Uri result) {
+        binding.imageV.setImageURI(result);
+    }
+}
+);
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

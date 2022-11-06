@@ -5,22 +5,17 @@
     android:layout_height="match_parent"
     android:background="?attr/fullscreenBackgroundColor"
     android:theme="@style/ThemeOverlay.PhotoPicker.FullscreenContainer"
-    tools:context=".FullscreenActivity">
+    tools:context=".FullscreenActivity"
+    tools:viewBindingIgnore="false">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="?attr/fullscreenTextColor"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
+   <ImageView
+       android:id="@+id/imageV"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_gravity="center"/>
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <FrameLayout
@@ -34,16 +29,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             tools:ignore="UselessParent">
 
             <Button
-                android:id="@+id/dummy_button"
+                android:id="@+id/button"
                 style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/dummy_button" />
+                android:text="Choose_pic" />
 
         </LinearLayout>
     </FrameLayout>
